@@ -12,7 +12,7 @@ import axios from 'axios'
 export default {
     name:"HomePage",
     props:{
-        msg: String
+        msg: String,
     },
     data(){
         return{
@@ -23,6 +23,7 @@ export default {
     },
     methods : {
         onLogin() {
+            this.foo();
             console.log("login...");
             axios
                 .get("http://localhost:8888/rest/user/login", {
