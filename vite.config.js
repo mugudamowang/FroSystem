@@ -1,20 +1,19 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import styleImport, { VantResolve } from 'vite-plugin-style-import';
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    styleImport({
-      resolves: [VantResolve()],
-      libs: [
-        {
-          libraryName: 'vant',
-          esModule: true,
-          resolveStyle: (name) => `../es/${name}/style`,
-        }
-      ]
-    }),
   ],
-  base: './'
+  base: './',
+  server: {
+    proxy:{
+      '/api': {
+        target: 'http://localhost:8888/rest/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+    }
+    }
+  }
 })

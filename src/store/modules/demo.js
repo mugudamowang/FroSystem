@@ -2,6 +2,7 @@ import axios from "axios";
 
 // initial state
 const state = () => ({
+    user: {},
     count: 1,
     hitokoto: ''
 })
@@ -16,23 +17,26 @@ const getters = {
 // actions 写业务逻辑+ajax请求
 // context --> {commit} 
 const actions = {
-    ajaxAdd({ commit }, value) {
-        //模拟异步请求
-        console.log("等待1s刷新count模拟异步操作");
-
-        setTimeout(() => {
-            commit('addCount', value)
-            console.log("刷新成功")
-        }, 1000)
-    },
-    ajaxYan({ commit }) {
-        axios.get('https://v1.hitokoto.cn')
-            .then(({ data }) => {
-                commit('hitokoto', data.hitokoto)
+    onLogin({ commit }, value) {
+        return axios.get('api/user/login', {
+            params: {
+                username: value.username,
+                password: value.password
+            }
+        }).then((e) => {
+            sessionStorage.setItem("isLogin", e.data.success)
+            commit('authorized', e.data.user)
+        }).catch((e) => {
+                alert('找不到该账户信息, 请检查账号信息!')
             })
-            .catch((function (error) {
-                alert('网络不行, 待会再试试')
-            }))
+    },
+    onRegister({ commit }, value){
+        return axios.get('api/user/register',{
+            params:{
+                username: value.username,
+                password: value.password
+            }
+        })
     }
 }
 
@@ -43,6 +47,10 @@ const mutations = {
     },
     hitokoto(state, value) {
         state.hitokoto = value
+    },
+    authorized(state, value){
+        state.user = value;
+        console.log(state.user);
     }
 }
 

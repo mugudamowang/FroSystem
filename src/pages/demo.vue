@@ -100,12 +100,12 @@ export default {
     beforeDestroy() {
         console.log("demo销毁");
     },
-    activated(){
+    activated() {
         console.log("激活了demo");
     },
-    deactivated(){
+    deactivated() {
         console.log("失活了demo");
-    }
+    },
 };
 </script>
 <style lang="">
