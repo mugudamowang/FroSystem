@@ -1,18 +1,19 @@
 <script setup>
-import { TabbarItem, Tabbar } from "vant";
-import { ref } from "vue";
+//一般组件
+import { ref, onBeforeUnmount, onActivated, onDeactivated } from "vue";
 
 const active = ref(0);
+
+onBeforeUnmount(function(){
+    console.log("navbar销毁");
+})
+
+
 </script>
 
 
 <template>
-    <Tabbar v-model="active">
-        <TabbarItem icon="home-o">标签</TabbarItem>
-        <TabbarItem icon="search">标签</TabbarItem>
-        <TabbarItem icon="friends-o">标签</TabbarItem>
-        <TabbarItem icon="setting-o">标签</TabbarItem>
-    </Tabbar>
+    <h2>bar</h2>
 </template>
     
 
