@@ -3,8 +3,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import home from '../pages/HomePage.vue'
 import demo from '../pages/demo.vue'
-import navbar from '../components/NavFooter.vue'
+import navbar from '../components/NavBar.vue'
 import login from '../pages/UserLogin.vue'
+import hot from '../components/HotRec.vue'
+import search from '../components/ProductDetail.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -13,9 +15,18 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: home,
+            redirect: "/hot",
             meta: {
                 authorization: true
-            }
+            },
+            children: [
+                {
+                    name: "hot", path: "/hot", component: hot,
+                },
+                {
+                    name: "search", path: "search", component: search
+                }
+            ]
         },
         {
             path: '/login',
